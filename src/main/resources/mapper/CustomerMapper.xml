@@ -1,0 +1,278 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CustomerMapper">
+    <resultMap type="com.example.domain.Customer" id="customerResultMap">
+		<id column="id" property="id" />
+	    <result column="mobile" property="mobile" />
+	    <result column="email" property="email" />
+	    <result column="customer_name" property="customerName" />
+	    <result column="customer_password" property="customerPassword" />
+	    <result column="head_image" property="headImage" />
+	    <result column="gender" property="gender" />
+	    <result column="birthday" property="birthday" />
+	    <result column="create_time" property="createTime" />
+	    <result column="update_time" property="updateTime" />
+	    <result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+
+    <sql id="customerColumns">
+		id,
+		mobile,
+		email,
+		customer_name,
+		customer_password,
+		head_image,
+		gender,
+		birthday,
+		create_time,
+		update_time,
+		delete_flag
+    </sql>
+
+    <sql id="customerProperty">
+		#{id},
+		#{mobile},
+		#{email},
+		#{customerName},
+		#{customerPassword},
+		#{headImage},
+		#{gender},
+		#{birthday},
+		#{createTime},
+		#{updateTime},
+		#{deleteFlag}
+    </sql>
+
+    <sql id="customerSelectiveColumns">
+		<if test="id != null">
+			id,
+		</if>
+		<if test="mobile != null">
+			mobile,
+		</if>
+		<if test="email != null">
+			email,
+		</if>
+		<if test="customerName != null">
+			customer_name,
+		</if>
+		<if test="customerPassword != null">
+			customer_password,
+		</if>
+		<if test="headImage != null">
+			head_image,
+		</if>
+		<if test="gender != null">
+			gender,
+		</if>
+		<if test="birthday != null">
+			birthday,
+		</if>
+		<if test="createTime != null">
+			create_time,
+		</if>
+		<if test="updateTime != null">
+			update_time,
+		</if>
+		<if test="deleteFlag != null">
+			delete_flag
+		</if>
+    </sql>
+
+    <sql id="customerSelectiveProperty">
+		<if test="id != null">
+			#{id},
+		</if>
+		<if test="mobile != null">
+			#{mobile},
+		</if>
+		<if test="email != null">
+			#{email},
+		</if>
+		<if test="customerName != null">
+			#{customerName},
+		</if>
+		<if test="customerPassword != null">
+			#{customerPassword},
+		</if>
+		<if test="headImage != null">
+			#{headImage},
+		</if>
+		<if test="gender != null">
+			#{gender},
+		</if>
+		<if test="birthday != null">
+			#{birthday},
+		</if>
+		<if test="createTime != null">
+			#{createTime},
+		</if>
+		<if test="updateTime != null">
+			#{updateTime},
+		</if>
+		<if test="deleteFlag != null">
+			#{deleteFlag}
+		</if>
+    </sql>
+
+    <sql id="customerSelectiveWhere">
+        <where>
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="mobile != null">
+				AND mobile = #{mobile}
+			</if>
+			<if test="email != null">
+				AND email = #{email}
+			</if>
+			<if test="customerName != null">
+				AND customer_name = #{customerName}
+			</if>
+			<if test="customerPassword != null">
+				AND customer_password = #{customerPassword}
+			</if>
+			<if test="headImage != null">
+				AND head_image = #{headImage}
+			</if>
+			<if test="gender != null">
+				AND gender = #{gender}
+			</if>
+			<if test="birthday != null">
+				AND birthday = #{birthday}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime}
+			</if>
+			<if test="deleteFlag != null">
+				AND delete_flag = #{deleteFlag}
+			</if>
+        </where>
+    </sql>
+
+    <sql id="customerUpdateSet">
+        <trim prefix="SET" suffixOverrides=",">
+            id = #{id},
+            mobile = #{mobile},
+            email = #{email},
+            customer_name = #{customerName},
+            customer_password = #{customerPassword},
+            head_image = #{headImage},
+            gender = #{gender},
+            birthday = #{birthday},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            delete_flag = #{deleteFlag},
+        </trim>
+    </sql>
+
+    <sql id="customerSelectiveUpdateSet">
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName},
+            </if>
+            <if test="customerPassword != null">
+                customer_password = #{customerPassword},
+            </if>
+            <if test="headImage != null">
+                head_image = #{headImage},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.example.domain.Customer">
+        INSERT INTO home_customer (
+        <include refid="customerColumns"></include>
+        ) VALUES (
+        <include refid="customerProperty"></include>
+        )
+    </insert>
+
+    <insert id="insertUseGeneratedKeys" parameterType="com.example.domain.Customer" keyProperty="id"
+            useGeneratedKeys="true">
+        INSERT INTO home_customer (
+        <include refid="customerColumns"></include>
+        ) VALUES (
+        <include refid="customerProperty"></include>
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.example.domain.Customer" keyProperty="id"
+			useGeneratedKeys="true">
+        INSERT INTO home_customer (
+        <include refid="customerSelectiveColumns"></include>
+        ) VALUES (
+        <include refid="customerSelectiveProperty"></include>
+        )
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM home_customer WHERE id = #{id}
+    </delete>
+
+    <delete id="delete" parameterType="com.example.domain.Customer">
+        DELETE FROM home_customer
+        <include refid="customerSelectiveWhere"></include>
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="com.example.domain.Customer">
+        UPDATE home_customer
+        <include refid="customerUpdateSet"></include>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.domain.Customer">
+        UPDATE home_customer
+        <include refid="customerSelectiveUpdateSet"></include>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectCount" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM home_customer
+        <include refid="customerSelectiveWhere"></include>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="customerResultMap">
+        SELECT
+        <include refid="customerColumns"></include>
+        FROM home_customer
+        WHERE id = #{id}
+    </select>
+
+    <select id="select" resultMap="customerResultMap" parameterType="com.example.domain.Customer">
+        SELECT
+        <include refid="customerColumns"></include>
+        FROM home_customer
+        <include refid="customerSelectiveWhere"></include>
+    </select>
+</mapper>

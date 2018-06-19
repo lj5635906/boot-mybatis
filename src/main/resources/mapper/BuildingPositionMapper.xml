@@ -1,0 +1,262 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BuildingPositionMapper">
+    <resultMap type="com.example.domain.BuildingPosition" id="buildingPositionResultMap">
+		<id column="id" property="id" />
+	    <result column="developer_id" property="developerId" />
+	    <result column="operation_area_id" property="operationAreaId" />
+	    <result column="building_id" property="buildingId" />
+	    <result column="parent_id" property="parentId" />
+	    <result column="position_name" property="positionName" />
+	    <result column="position_alias" property="positionAlias" />
+	    <result column="create_time" property="createTime" />
+	    <result column="update_time" property="updateTime" />
+	    <result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+
+    <sql id="buildingPositionColumns">
+		id,
+		developer_id,
+		operation_area_id,
+		building_id,
+		parent_id,
+		position_name,
+		position_alias,
+		create_time,
+		update_time,
+		delete_flag
+    </sql>
+
+    <sql id="buildingPositionProperty">
+		#{id},
+		#{developerId},
+		#{operationAreaId},
+		#{buildingId},
+		#{parentId},
+		#{positionName},
+		#{positionAlias},
+		#{createTime},
+		#{updateTime},
+		#{deleteFlag}
+    </sql>
+
+    <sql id="buildingPositionSelectiveColumns">
+		<if test="id != null">
+			id,
+		</if>
+		<if test="developerId != null">
+			developer_id,
+		</if>
+		<if test="operationAreaId != null">
+			operation_area_id,
+		</if>
+		<if test="buildingId != null">
+			building_id,
+		</if>
+		<if test="parentId != null">
+			parent_id,
+		</if>
+		<if test="positionName != null">
+			position_name,
+		</if>
+		<if test="positionAlias != null">
+			position_alias,
+		</if>
+		<if test="createTime != null">
+			create_time,
+		</if>
+		<if test="updateTime != null">
+			update_time,
+		</if>
+		<if test="deleteFlag != null">
+			delete_flag
+		</if>
+    </sql>
+
+    <sql id="buildingPositionSelectiveProperty">
+		<if test="id != null">
+			#{id},
+		</if>
+		<if test="developerId != null">
+			#{developerId},
+		</if>
+		<if test="operationAreaId != null">
+			#{operationAreaId},
+		</if>
+		<if test="buildingId != null">
+			#{buildingId},
+		</if>
+		<if test="parentId != null">
+			#{parentId},
+		</if>
+		<if test="positionName != null">
+			#{positionName},
+		</if>
+		<if test="positionAlias != null">
+			#{positionAlias},
+		</if>
+		<if test="createTime != null">
+			#{createTime},
+		</if>
+		<if test="updateTime != null">
+			#{updateTime},
+		</if>
+		<if test="deleteFlag != null">
+			#{deleteFlag}
+		</if>
+    </sql>
+
+    <sql id="buildingPositionSelectiveWhere">
+        <where>
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="developerId != null">
+				AND developer_id = #{developerId}
+			</if>
+			<if test="operationAreaId != null">
+				AND operation_area_id = #{operationAreaId}
+			</if>
+			<if test="buildingId != null">
+				AND building_id = #{buildingId}
+			</if>
+			<if test="parentId != null">
+				AND parent_id = #{parentId}
+			</if>
+			<if test="positionName != null">
+				AND position_name = #{positionName}
+			</if>
+			<if test="positionAlias != null">
+				AND position_alias = #{positionAlias}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime}
+			</if>
+			<if test="deleteFlag != null">
+				AND delete_flag = #{deleteFlag}
+			</if>
+        </where>
+    </sql>
+
+    <sql id="buildingPositionUpdateSet">
+        <trim prefix="SET" suffixOverrides=",">
+            id = #{id},
+            developer_id = #{developerId},
+            operation_area_id = #{operationAreaId},
+            building_id = #{buildingId},
+            parent_id = #{parentId},
+            position_name = #{positionName},
+            position_alias = #{positionAlias},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            delete_flag = #{deleteFlag},
+        </trim>
+    </sql>
+
+    <sql id="buildingPositionSelectiveUpdateSet">
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="developerId != null">
+                developer_id = #{developerId},
+            </if>
+            <if test="operationAreaId != null">
+                operation_area_id = #{operationAreaId},
+            </if>
+            <if test="buildingId != null">
+                building_id = #{buildingId},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="positionName != null">
+                position_name = #{positionName},
+            </if>
+            <if test="positionAlias != null">
+                position_alias = #{positionAlias},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.example.domain.BuildingPosition">
+        INSERT INTO home_building_position (
+        <include refid="buildingPositionColumns"></include>
+        ) VALUES (
+        <include refid="buildingPositionProperty"></include>
+        )
+    </insert>
+
+    <insert id="insertUseGeneratedKeys" parameterType="com.example.domain.BuildingPosition" keyProperty="id"
+            useGeneratedKeys="true">
+        INSERT INTO home_building_position (
+        <include refid="buildingPositionColumns"></include>
+        ) VALUES (
+        <include refid="buildingPositionProperty"></include>
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.example.domain.BuildingPosition" keyProperty="id"
+			useGeneratedKeys="true">
+        INSERT INTO home_building_position (
+        <include refid="buildingPositionSelectiveColumns"></include>
+        ) VALUES (
+        <include refid="buildingPositionSelectiveProperty"></include>
+        )
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM home_building_position WHERE id = #{id}
+    </delete>
+
+    <delete id="delete" parameterType="com.example.domain.BuildingPosition">
+        DELETE FROM home_building_position
+        <include refid="buildingPositionSelectiveWhere"></include>
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="com.example.domain.BuildingPosition">
+        UPDATE home_building_position
+        <include refid="buildingPositionUpdateSet"></include>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.domain.BuildingPosition">
+        UPDATE home_building_position
+        <include refid="buildingPositionSelectiveUpdateSet"></include>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectCount" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM home_building_position
+        <include refid="buildingPositionSelectiveWhere"></include>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="buildingPositionResultMap">
+        SELECT
+        <include refid="buildingPositionColumns"></include>
+        FROM home_building_position
+        WHERE id = #{id}
+    </select>
+
+    <select id="select" resultMap="buildingPositionResultMap" parameterType="com.example.domain.BuildingPosition">
+        SELECT
+        <include refid="buildingPositionColumns"></include>
+        FROM home_building_position
+        <include refid="buildingPositionSelectiveWhere"></include>
+    </select>
+</mapper>
